@@ -7,11 +7,13 @@ var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts'); 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var session = require('express-session') // around line 9
+var flash = require('express-flash-messages')
 var app = express();
 var stocksRouter = require('./routes/stocks')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+var SESSION_SECRET = process.env.SESSION_SECRET || "super secret"
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
@@ -27,7 +29,14 @@ app.use('/stocks', stocksRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
+app.use(session({
+  cookie: { maxAge: 60000},
+  secret: SESSION_SECRET,
+  name: 'stocks-app-session',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(flash())
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
