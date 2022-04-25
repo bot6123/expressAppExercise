@@ -1,7 +1,7 @@
 // this is the "routes/stocks.js" file...
 
 // see: https://www.npmjs.com/package/node-fetch
-import fetch from 'node-fetch';
+//import fetch from 'node-fetch';
 
 var express = require('express');
 var router = express.Router();
