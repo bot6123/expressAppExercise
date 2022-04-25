@@ -13,4 +13,21 @@ router.get('/', function(req, res, next) {
 
   res.send(users);
 });
+// this is the "routes/users.js" file...
+
+//...
+
+router.get('/:id', function(req, res, next) {
+
+  var userId = req.params.id;
+  console.log("USER ID:", userId)
+
+  // just some dummy data using the id variable
+  var user = {"id": userId, "name": `User ${userId}`, "email": `user${userId}@example.com`}
+
+  res.send(user);
+});
+
+//...
+
 module.exports = router;
